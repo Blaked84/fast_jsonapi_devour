@@ -25,9 +25,8 @@ module FastJsonapiDevour
       end
 
       def self.devour_model
-        devour_attributes.tap do |a|
-          a.merge(devour_relationships) if devour_relationships
-        end
+        devour_model = devour_attributes
+        devour_model.merge!(devour_relationships) if devour_relationships
       end
     end
   end
