@@ -9,11 +9,11 @@ module FastJsonapiDevour
     included do
 
       def self.devour_attributes
-        attributes_to_serialize.transform_values { |v| '' }
+        attributes_to_serialize&.transform_values { |v| '' }
       end
 
       def self.devour_relationships
-        relationships_to_serialize.transform_values do |relationship|
+        relationships_to_serialize&.transform_values do |relationship|
           {
             relationship.name =>
               {
@@ -25,7 +25,9 @@ module FastJsonapiDevour
       end
 
       def self.devour_model
-        devour_attributes.merge(devour_relationships)
+        devour_attributes.tap do |a|
+          a.merge(devour_relationships) if devour_relationships
+        end
       end
     end
   end
