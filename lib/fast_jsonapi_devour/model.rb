@@ -17,7 +17,7 @@ module FastJsonapiDevour
           {
             relationship.name =>
               {
-                jsonApi: relationship.relationship_type,
+                jsonApi: relationship.relationship_type.to_s.split('_').inject { |m, p| m + p.capitalize },
                 type: relationship.name
               }
           }
